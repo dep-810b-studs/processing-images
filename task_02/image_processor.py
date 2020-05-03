@@ -19,7 +19,7 @@ class ImageProcessor:
         # Обесцвечиваем изображение
         gray = cv2.cvtColor(resize, cv2.COLOR_BGR2GRAY)
 
-        blur = cv2.GaussianBlur(gray, (5, 5), 0)
+        blur = cv2.medianBlur(gray, 21)
         ret, thresh1 = cv2.threshold(blur, 30, 255, cv2.THRESH_BINARY + cv2.THRESH_OTSU)
         contours, hierarchy = cv2.findContours(thresh1, cv2.RETR_TREE, cv2.CHAIN_APPROX_SIMPLE)
         drawing = np.zeros(img.shape, np.uint8)
