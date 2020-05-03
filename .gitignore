@@ -1,0 +1,14 @@
+.out
+.txt
+.tif
+*.tif
+*.txt
+*.out
+*.xml
+*.pyc
+*.pdf
+*.zip
+*.7z
+*.jpeg
+.idea.
+.idea/
