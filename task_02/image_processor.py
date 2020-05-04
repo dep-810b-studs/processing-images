@@ -4,7 +4,7 @@ import os
 
 
 class ImageProcessor:
-    def __init__(self, input_file_name, output_file_name=None, coefficient=None):
+    def __init__(self, input_file_name=None, output_file_name=None, coefficient=None):
         self.__image_with_points = np.ndarray(shape=10)
         self.__image_without_points = np.ndarray(shape=10)
         self.__input_file_name = input_file_name
@@ -67,9 +67,11 @@ class ImageProcessor:
     def load_image_from_file(self, input_file_name=None):
         if input_file_name is None:
             input_file_name = self.__input_file_name
+        else:
+            self.__input_file_name = input_file_name
         self.__image_without_points = cv2.imread(input_file_name)
 
     def save_image_to_file(self, output_file_name=None):
         if output_file_name is None:
             output_file_name = f"./training/test/{os.path.basename(self.__input_file_name)}"
-        cv2.imwrite(output_file_name,self.__image_with_points)
+        cv2.imwrite(output_file_name, self.__image_with_points)
