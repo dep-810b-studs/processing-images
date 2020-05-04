@@ -4,7 +4,7 @@ import os
 
 
 class ImageProcessor:
-    def __init__(self, input_file_name, output_file_name=None, coefficient=None):
+    def __init__(self, input_file_name=None, output_file_name=None, coefficient=None):
         self.__image_with_points = np.ndarray(shape=10)
         self.__image_without_points = np.ndarray(shape=10)
         self.__input_file_name = input_file_name
@@ -19,7 +19,7 @@ class ImageProcessor:
         # Обесцвечиваем изображение
         gray = cv2.cvtColor(resize, cv2.COLOR_BGR2GRAY)
 
-        blur = cv2.GaussianBlur(gray, (5, 5), 0)
+        blur = cv2.medianBlur(gray, 21)
         ret, thresh1 = cv2.threshold(blur, 30, 255, cv2.THRESH_BINARY + cv2.THRESH_OTSU)
         contours, hierarchy = cv2.findContours(thresh1, cv2.RETR_TREE, cv2.CHAIN_APPROX_SIMPLE)
         drawing = np.zeros(img.shape, np.uint8)
@@ -67,9 +67,11 @@ class ImageProcessor:
     def load_image_from_file(self, input_file_name=None):
         if input_file_name is None:
             input_file_name = self.__input_file_name
+        else:
+            self.__input_file_name = input_file_name
         self.__image_without_points = cv2.imread(input_file_name)
 
     def save_image_to_file(self, output_file_name=None):
         if output_file_name is None:
             output_file_name = f"./training/test/{os.path.basename(self.__input_file_name)}"
-        cv2.imwrite(output_file_name,self.__image_with_points)
+        cv2.imwrite(output_file_name, self.__image_with_points)
