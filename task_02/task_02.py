@@ -1,3 +1,5 @@
+#!python
+
 from image_processor import ImageProcessor
 from cmd_pasrer import ImageProcessorArgs
 from image_processing_app import ImageProcessingApp
